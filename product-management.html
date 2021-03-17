@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping List</title>
+    <style>
+        input{
+            width: 300px  ; height: 30px;
+        }
+        button{
+            width: 50px; height: 30px;
+            border: none;
+            color: white;
+            background-color: limegreen;
+            border-radius: 5px;
+        }
+        td{
+            text-align: left;
+        }
+        table{
+            border-collapse: collapse;
+            border: 1px solid white;
+            width: 50%;
+        }
+        tr:nth-child(even){
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <h3> Add New Product</h3>
+    <input type = 'text' id = 'inputItem' placeholder="New Product">
+    <button onclick = 'addItem(products);display()'>Add</button>
+    <h3> Display All Products </h3>
+    <p><span id = 'outputItem'></span></p>
+</body>
+</html>
+<script>
+    let products = [ ];
+    let table = '<table></table>';
+
+    function addItem(list){
+        let item = document.getElementById('inputItem').value;
+        list.push(item);
+        return list;
+    }
+
+    function removeItem(index, list){
+        list.splice(index,1);
+        return list;
+    }
+
+    function editItem(index, list){
+        let item = prompt('Edit the product: ');
+        list[index] = item;
+        return list;
+    }
+
+    function display(){
+        table = '<table>';
+        table += '<tr><th style = "text-align: left">Product Name</th>';
+        table += '<th><th/>';
+        table += '<th style="text-align: right; color: purple">'+products.length+' product(s)<th/>';
+        table += '</tr>';
+        for (let index = 0; index < products.length; index++){
+            table += '<tr>';
+            table += '<td>'+ products[index]+'<td/>';
+            table += '<td>'+ '<button id = '+index+ ' onclick = editItem(this.id,products);display()>Edit</button>'+'<td/>';
+            table += '<td>'+ '<button id = '+index+ ' onclick = removeItem(this.id,products);display()>Delete</button>'+'<td/>';
+            table += '</tr>';
+        }
+        table += '<table/>';
+        document.getElementById('outputItem').innerHTML = table;
+    }
+</script>
